@@ -5,6 +5,7 @@ import '../../core/theme/app_colors.dart';
 import '../widgets/status_badge.dart';
 import '../widgets/kpi_card.dart';
 import '../widgets/worker_avatar.dart';
+import '../widgets/site_image.dart';
 import '../../providers/employee_provider.dart';
 
 class AttendanceScreen extends ConsumerWidget {
@@ -47,6 +48,46 @@ class AttendanceScreen extends ConsumerWidget {
                   ),
                 ),
               ],
+            ),
+
+            const SizedBox(height: 20),
+
+            // Active Site Visual Cards (Width: 280px, Height: 160px)
+            Text('Active Site Check-in Locations', style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+            const SizedBox(height: 12),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.only(right: 14.0),
+                    child: SiteImage(
+                      width: 280,
+                      height: 160,
+                      title: 'Green Valley Site (42 Present)',
+                      tag: 'GPS Verified',
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 14.0),
+                    child: SiteImage(
+                      width: 280,
+                      height: 160,
+                      title: 'City Mall Extension (38 Present)',
+                      tag: 'GPS Verified',
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 14.0),
+                    child: SiteImage(
+                      width: 280,
+                      height: 160,
+                      title: 'Ocean View Villa (26 Present)',
+                      tag: 'Pending Check-in',
+                    ),
+                  ),
+                ],
+              ),
             ),
 
             const SizedBox(height: 24),

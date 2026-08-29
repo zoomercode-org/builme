@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_colors.dart';
+import '../widgets/site_image.dart';
 
 class ReportsScreen extends StatelessWidget {
   const ReportsScreen({super.key});
@@ -58,6 +59,46 @@ class ReportsScreen extends StatelessWidget {
             ),
 
             const SizedBox(height: 20),
+
+            // Executive Site Reports Imagery (Width: 280px, Height: 160px)
+            Text('Featured Executive PDF Reports', style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+            const SizedBox(height: 12),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.only(right: 14.0),
+                    child: SiteImage(
+                      width: 280,
+                      height: 160,
+                      title: 'Q2 Executive Master Report',
+                      tag: 'PDF • 14.2 MB',
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 14.0),
+                    child: SiteImage(
+                      width: 280,
+                      height: 160,
+                      title: 'Site Safety Audit 2025',
+                      tag: 'PDF • 8.6 MB',
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 14.0),
+                    child: SiteImage(
+                      width: 280,
+                      height: 160,
+                      title: 'Material Consumption Audit',
+                      tag: 'XLSX • 4.1 MB',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 24),
 
             LayoutBuilder(
               builder: (context, constraints) {

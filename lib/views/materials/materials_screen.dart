@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/theme/app_colors.dart';
 import '../widgets/status_badge.dart';
 import '../widgets/kpi_card.dart';
+import '../widgets/site_image.dart';
 import '../../providers/material_provider.dart';
 
 class MaterialsScreen extends ConsumerWidget {
@@ -40,6 +41,46 @@ class MaterialsScreen extends ConsumerWidget {
                   label: const Text('+ Add Material'),
                 ),
               ],
+            ),
+
+            const SizedBox(height: 20),
+
+            // Material Stock Yard Images (Width: 280px, Height: 160px)
+            Text('Site Storage & Materials Yards', style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+            const SizedBox(height: 12),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.only(right: 14.0),
+                    child: SiteImage(
+                      width: 280,
+                      height: 160,
+                      title: 'Green Valley Cement Depot',
+                      tag: '1250 Bags',
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 14.0),
+                    child: SiteImage(
+                      width: 280,
+                      height: 160,
+                      title: 'City Mall Steel Storage',
+                      tag: 'Low Stock Alert',
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 14.0),
+                    child: SiteImage(
+                      width: 280,
+                      height: 160,
+                      title: 'Calicut Sand & Aggregate Pit',
+                      tag: 'Reorder Soon',
+                    ),
+                  ),
+                ],
+              ),
             ),
 
             const SizedBox(height: 24),

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/theme/app_colors.dart';
 import '../widgets/status_badge.dart';
 import '../widgets/kpi_card.dart';
+import '../widgets/site_image.dart';
 import '../widgets/charts/cost_trend_chart.dart';
 import '../../providers/expense_provider.dart';
 
@@ -41,6 +42,46 @@ class CostManagementScreen extends ConsumerWidget {
                   label: const Text('+ Add Expense'),
                 ),
               ],
+            ),
+
+            const SizedBox(height: 20),
+
+            // Site Financial Overview Images (Width: 280px, Height: 160px)
+            Text('Project Financial Audits', style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+            const SizedBox(height: 12),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.only(right: 14.0),
+                    child: SiteImage(
+                      width: 280,
+                      height: 160,
+                      title: 'Green Valley (₹1.2Cr Spent)',
+                      tag: 'On Budget',
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 14.0),
+                    child: SiteImage(
+                      width: 280,
+                      height: 160,
+                      title: 'City Mall (₹1.8Cr Spent)',
+                      tag: 'Over Budget',
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 14.0),
+                    child: SiteImage(
+                      width: 280,
+                      height: 160,
+                      title: 'Ocean View Villa (₹0.6Cr Spent)',
+                      tag: 'Under Budget',
+                    ),
+                  ),
+                ],
+              ),
             ),
 
             const SizedBox(height: 24),

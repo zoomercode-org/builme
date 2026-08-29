@@ -5,6 +5,7 @@ import '../../core/theme/app_colors.dart';
 import '../widgets/status_badge.dart';
 import '../widgets/kpi_card.dart';
 import '../widgets/worker_avatar.dart';
+import '../widgets/site_image.dart';
 import '../../providers/employee_provider.dart';
 
 class EmployeesScreen extends ConsumerWidget {
@@ -44,6 +45,46 @@ class EmployeesScreen extends ConsumerWidget {
                   label: const Text('+ Add Employee'),
                 ),
               ],
+            ),
+
+            const SizedBox(height: 20),
+
+            // Site Team Allocations (Width: 280px, Height: 160px)
+            Text('Project Workforce Distribution', style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+            const SizedBox(height: 12),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.only(right: 14.0),
+                    child: SiteImage(
+                      width: 280,
+                      height: 160,
+                      title: 'Green Valley Team (46 Staff)',
+                      tag: 'Engineers & Masons',
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 14.0),
+                    child: SiteImage(
+                      width: 280,
+                      height: 160,
+                      title: 'City Mall Extension (38 Staff)',
+                      tag: 'Steel Fixers & Safety',
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 14.0),
+                    child: SiteImage(
+                      width: 280,
+                      height: 160,
+                      title: 'Ocean View Villa (22 Staff)',
+                      tag: 'MEP Engineers',
+                    ),
+                  ),
+                ],
+              ),
             ),
 
             const SizedBox(height: 24),
