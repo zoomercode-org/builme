@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/theme/app_colors.dart';
 import '../widgets/status_badge.dart';
 import '../widgets/kpi_card.dart';
+import '../widgets/worker_avatar.dart';
 import '../../providers/employee_provider.dart';
 
 class EmployeesScreen extends ConsumerWidget {
@@ -94,9 +95,10 @@ class EmployeesScreen extends ConsumerWidget {
                         constraints: const BoxConstraints(minWidth: 700),
                         child: Row(
                           children: [
-                            CircleAvatar(
+                            WorkerAvatar(
+                              name: emp.name,
+                              avatarUrl: emp.avatarUrl,
                               radius: 20,
-                              backgroundImage: NetworkImage(emp.avatarUrl),
                             ),
                             const SizedBox(width: 14),
                             SizedBox(

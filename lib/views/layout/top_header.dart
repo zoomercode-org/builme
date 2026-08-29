@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/theme/app_colors.dart';
 import '../../providers/navigation_provider.dart';
 import '../../providers/auth_provider.dart';
+import '../widgets/worker_avatar.dart';
 
 class TopHeader extends ConsumerWidget {
   const TopHeader({super.key});
@@ -282,9 +283,10 @@ class TopHeader extends ConsumerWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    CircleAvatar(
+                    WorkerAvatar(
+                      name: auth.userName,
+                      avatarUrl: auth.avatarUrl,
                       radius: 16,
-                      backgroundImage: NetworkImage(auth.avatarUrl),
                     ),
                     if (!isNarrow) ...[
                       const SizedBox(width: 8),

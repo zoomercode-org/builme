@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/theme/app_colors.dart';
 import '../widgets/status_badge.dart';
-import '../widgets/custom_image.dart';
+import '../widgets/site_image.dart';
 import '../../providers/project_provider.dart';
 import 'add_project_sheet.dart';
 
@@ -136,153 +136,103 @@ class _ProjectsScreenState extends ConsumerState<ProjectsScreen> {
 
                 const SizedBox(height: 24),
 
-                // Projects List / Table Card
-                Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.cardBackground,
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(color: AppColors.cardBorder),
-                    boxShadow: AppColors.cardShadow,
+                // Projects Grid / Card List (with specified Width: 280, Height: 160 images!)
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 420,
+                    mainAxisExtent: 320,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
                   ),
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: projectsState.filteredProjects.length,
-                    separatorBuilder: (context, index) => const Divider(color: Color(0xFFF1F5F9), height: 1),
-                    itemBuilder: (context, index) {
-                      final project = projectsState.filteredProjects[index];
-                      return InkWell(
-                        onTap: () {
-                          ref.read(selectedProjectIdProvider.notifier).state = project.id;
-                          context.go('/projects/${project.id}');
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: ConstrainedBox(
-                              constraints: const BoxConstraints(minWidth: 800),
-                              child: Row(
+                  itemCount: projectsState.filteredProjects.length,
+                  itemBuilder: (context, index) {
+                    final project = projectsState.filteredProjects[index];
+                    return InkWell(
+                      onTap: () {
+                        ref.read(selectedProjectIdProvider.notifier).state = project.id;
+                        context.go('/projects/${project.id}');
+                      },
+                      borderRadius: BorderRadius.circular(14),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.cardBackground,
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(color: AppColors.cardBorder),
+                          boxShadow: AppColors.cardShadow,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Project Site Image (Width: 280, Height: 160)
+                            SiteImage(
+                              imageUrl: project.imageUrl,
+                              width: double.infinity,
+                              height: 160,
+                              title: project.name,
+                              tag: project.status,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(14.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  // Project Thumbnail
-                                  CustomImage(
-                                    imageUrl: project.imageUrl,
-                                    width: 80,
-                                    height: 60,
-                                    borderRadius: BorderRadius.circular(10),
-                                    placeholderLabel: project.name,
-                                  ),
-                                  const SizedBox(width: 16),
-
-                                  // Name & Client
-                                  SizedBox(
-                                    width: 240,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
                                           project.name,
+                                          overflow: TextOverflow.ellipsis,
                                           style: GoogleFonts.inter(
                                             fontSize: 15,
                                             fontWeight: FontWeight.w700,
                                             color: AppColors.textPrimary,
                                           ),
                                         ),
-                                        const SizedBox(height: 4),
-                                        Text(
-                                          'Client: ${project.client} • Manager: ${project.manager}',
-                                          overflow: TextOverflow.ellipsis,
-                                          style: GoogleFonts.inter(fontSize: 12, color: AppColors.textMuted),
-                                        ),
-                                        Text(
-                                          'Location: ${project.location}',
-                                          overflow: TextOverflow.ellipsis,
-                                          style: GoogleFonts.inter(fontSize: 12, color: AppColors.textSecondary),
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                      StatusBadge(status: project.status),
+                                    ],
                                   ),
-
-                                  const SizedBox(width: 16),
-
-                                  // Progress Column
-                                  SizedBox(
-                                    width: 160,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              'Progress',
-                                              style: GoogleFonts.inter(fontSize: 12, color: AppColors.textMuted),
-                                            ),
-                                            Text(
-                                              '${(project.progress * 100).toInt()}%',
-                                              style: GoogleFonts.inter(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w700,
-                                                color: AppColors.textPrimary,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 6),
-                                        LinearProgressIndicator(
-                                          value: project.progress,
-                                          backgroundColor: const Color(0xFFF1F5F9),
-                                          color: project.status == 'Delayed'
-                                              ? AppColors.danger
-                                              : (project.status == 'At Risk' ? AppColors.warning : AppColors.success),
-                                          minHeight: 6,
-                                          borderRadius: BorderRadius.circular(3),
-                                        ),
-                                      ],
-                                    ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    '${project.client} • ${project.location}',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: GoogleFonts.inter(fontSize: 12, color: AppColors.textMuted),
                                   ),
-
-                                  const SizedBox(width: 24),
-
-                                  // Budget & Spent
-                                  SizedBox(
-                                    width: 160,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Budget / Spent',
-                                          style: GoogleFonts.inter(fontSize: 12, color: AppColors.textMuted),
-                                        ),
-                                        const SizedBox(height: 4),
-                                        Text(
-                                          '₹${project.spentCr} Cr / ₹${project.budgetCr} Cr',
-                                          style: GoogleFonts.inter(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                            color: AppColors.textPrimary,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                  const SizedBox(height: 12),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Progress ${(project.progress * 100).toInt()}%',
+                                        style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+                                      ),
+                                      Text(
+                                        'Budget: ₹${project.budgetCr} Cr',
+                                        style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+                                      ),
+                                    ],
                                   ),
-
-                                  const SizedBox(width: 16),
-
-                                  // Status Badge
-                                  StatusBadge(status: project.status),
-
-                                  const SizedBox(width: 16),
-
-                                  const Icon(Icons.chevron_right, color: AppColors.textMuted),
+                                  const SizedBox(height: 4),
+                                  LinearProgressIndicator(
+                                    value: project.progress,
+                                    backgroundColor: const Color(0xFFF1F5F9),
+                                    color: project.status == 'Delayed'
+                                        ? AppColors.danger
+                                        : (project.status == 'At Risk' ? AppColors.warning : AppColors.success),
+                                    minHeight: 6,
+                                    borderRadius: BorderRadius.circular(3),
+                                  ),
                                 ],
                               ),
                             ),
-                          ),
+                          ],
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/theme/app_colors.dart';
 import '../widgets/status_badge.dart';
-import '../widgets/custom_image.dart';
+import '../widgets/site_image.dart';
 import '../widgets/charts/gantt_timeline_widget.dart';
 import '../widgets/charts/schedule_performance_chart.dart';
 import '../../providers/project_provider.dart';
@@ -62,14 +62,16 @@ class _ProjectDetailsScreenState extends ConsumerState<ProjectDetailsScreen> wit
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              CustomImage(
+                              // Specified Width: 280, Height: 160 Image Banner
+                              SiteImage(
                                 imageUrl: project.imageUrl,
-                                width: isNarrow ? 90 : 120,
-                                height: isNarrow ? 70 : 90,
+                                width: isNarrow ? 220 : 280,
+                                height: isNarrow ? 130 : 160,
                                 borderRadius: BorderRadius.circular(12),
-                                placeholderLabel: project.name,
+                                title: project.name,
+                                tag: project.status,
                               ),
-                              const SizedBox(width: 16),
+                              const SizedBox(width: 20),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,7 +84,7 @@ class _ProjectDetailsScreenState extends ConsumerState<ProjectDetailsScreen> wit
                                         Text(
                                           project.name,
                                           style: GoogleFonts.inter(
-                                            fontSize: 20,
+                                            fontSize: 22,
                                             fontWeight: FontWeight.w700,
                                             color: AppColors.textPrimary,
                                           ),
@@ -126,7 +128,7 @@ class _ProjectDetailsScreenState extends ConsumerState<ProjectDetailsScreen> wit
 
                   const SizedBox(height: 24),
 
-                  // Overview KPI Mini Grid with Horizontal Scroll / Responsive Layout
+                  // Overview KPI Mini Grid
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
@@ -274,12 +276,11 @@ class _ProjectDetailsScreenState extends ConsumerState<ProjectDetailsScreen> wit
           const SizedBox(height: 12),
           Text(p.description, style: GoogleFonts.inter(fontSize: 14, color: AppColors.textSecondary, height: 1.5)),
           const SizedBox(height: 20),
-          CustomImage(
+          SiteImage(
             imageUrl: p.imageUrl,
-            height: 260,
             width: double.infinity,
-            borderRadius: BorderRadius.circular(12),
-            placeholderLabel: p.name,
+            height: 240,
+            title: p.name,
           ),
         ],
       ),
@@ -320,7 +321,7 @@ class _ProjectDetailsScreenState extends ConsumerState<ProjectDetailsScreen> wit
     );
   }
 
-  // 3. Daily Updates Tab with Photo Gallery
+  // 3. Daily Updates Tab with Site Photos Grid (Width: 280, Height: 160)
   Widget _buildDailyUpdatesTab(BuildContext context, WidgetRef ref, Project p) {
     return ListView(
       children: [
@@ -365,18 +366,17 @@ class _ProjectDetailsScreenState extends ConsumerState<ProjectDetailsScreen> wit
                 Text('Work Planned: ${update.workPlanned}', style: GoogleFonts.inter(fontSize: 13, color: AppColors.textSecondary)),
                 Text('Workers Present: ${update.workersPresent} • Materials Received: ${update.materialsReceived}', style: GoogleFonts.inter(fontSize: 12, color: AppColors.textMuted)),
                 const SizedBox(height: 16),
-                Text('Site Photos:', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w600)),
+                Text('Site Photos (Width: 280px, Height: 160px):', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 8),
                 Wrap(
-                  spacing: 12,
-                  runSpacing: 12,
+                  spacing: 14,
+                  runSpacing: 14,
                   children: update.siteImageUrls.map((url) {
-                    return CustomImage(
+                    return SiteImage(
                       imageUrl: url,
-                      width: 120,
-                      height: 80,
-                      borderRadius: BorderRadius.circular(8),
-                      placeholderLabel: 'Site Photo',
+                      width: 280,
+                      height: 160,
+                      title: 'Site Daily Photo',
                     );
                   }).toList(),
                 ),
