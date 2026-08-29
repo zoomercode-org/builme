@@ -92,25 +92,15 @@ class AttendanceScreen extends ConsumerWidget {
 
             const SizedBox(height: 24),
 
-            LayoutBuilder(
-              builder: (context, constraints) {
-                final width = constraints.maxWidth;
-                final crossAxisCount = width > 1100 ? 4 : (width > 600 ? 2 : 1);
-                return GridView.count(
-                  crossAxisCount: crossAxisCount,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                  childAspectRatio: width > 1100 ? 2.4 : 2.0,
-                  children: const [
-                    KpiCard(title: 'Total Workers', value: '146', trend: 'Registered'),
-                    KpiCard(title: 'Present Today', value: '128', trend: '87.6% rate'),
-                    KpiCard(title: 'Absent', value: '10', trend: '6.8% rate', isPositive: false),
-                    KpiCard(title: 'Late Arrival', value: '8', trend: '5.6% rate', isPositive: false),
-                  ],
-                );
-              },
+            Wrap(
+              spacing: 16,
+              runSpacing: 16,
+              children: const [
+                KpiCard(title: 'Total Workers', value: '146', trend: 'Registered'),
+                KpiCard(title: 'Present Today', value: '128', trend: '87.6% rate'),
+                KpiCard(title: 'Absent', value: '10', trend: '6.8% rate', isPositive: false),
+                KpiCard(title: 'Late Arrival', value: '8', trend: '5.6% rate', isPositive: false),
+              ],
             ),
 
             const SizedBox(height: 24),

@@ -90,25 +90,15 @@ class EmployeesScreen extends ConsumerWidget {
             const SizedBox(height: 24),
 
             // Responsive KPI Cards Grid
-            LayoutBuilder(
-              builder: (context, constraints) {
-                final width = constraints.maxWidth;
-                final crossAxisCount = width > 1100 ? 4 : (width > 600 ? 2 : 1);
-                return GridView.count(
-                  crossAxisCount: crossAxisCount,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                  childAspectRatio: width > 1100 ? 2.4 : 2.0,
-                  children: const [
-                    KpiCard(title: 'Total Employees', value: '146', trend: '+4 this month'),
-                    KpiCard(title: 'Active Today', value: '128', trend: '87.6% active'),
-                    KpiCard(title: 'On Leave', value: '8', trend: '5.4% leave'),
-                    KpiCard(title: 'Site Supervisors', value: '24', trend: 'Fully staffed'),
-                  ],
-                );
-              },
+            Wrap(
+              spacing: 16,
+              runSpacing: 16,
+              children: const [
+                KpiCard(title: 'Total Employees', value: '146', trend: '+4 this month'),
+                KpiCard(title: 'Active Today', value: '128', trend: '87.6% active'),
+                KpiCard(title: 'On Leave', value: '8', trend: '5.4% leave'),
+                KpiCard(title: 'Site Supervisors', value: '24', trend: 'Fully staffed'),
+              ],
             ),
 
             const SizedBox(height: 24),

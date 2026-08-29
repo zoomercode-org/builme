@@ -86,25 +86,15 @@ class CostManagementScreen extends ConsumerWidget {
 
             const SizedBox(height: 24),
 
-            LayoutBuilder(
-              builder: (context, constraints) {
-                final width = constraints.maxWidth;
-                final crossAxisCount = width > 1100 ? 4 : (width > 600 ? 2 : 1);
-                return GridView.count(
-                  crossAxisCount: crossAxisCount,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                  childAspectRatio: width > 1100 ? 2.4 : 2.0,
-                  children: const [
-                    KpiCard(title: 'Total Budget', value: '₹5.4 Cr', trend: 'Approved'),
-                    KpiCard(title: 'Total Spent', value: '₹3.8 Cr', trend: '70.3% used'),
-                    KpiCard(title: 'Pending Approval', value: '₹24 L', trend: '3 claims', isPositive: false),
-                    KpiCard(title: 'Remaining Budget', value: '₹1.6 Cr', trend: '29.7% safe'),
-                  ],
-                );
-              },
+            Wrap(
+              spacing: 16,
+              runSpacing: 16,
+              children: const [
+                KpiCard(title: 'Total Budget', value: '₹5.4 Cr', trend: 'Approved'),
+                KpiCard(title: 'Total Spent', value: '₹3.8 Cr', trend: '70.3% used'),
+                KpiCard(title: 'Pending Approval', value: '₹24 L', trend: '3 claims', isPositive: false),
+                KpiCard(title: 'Remaining Budget', value: '₹1.6 Cr', trend: '29.7% safe'),
+              ],
             ),
 
             const SizedBox(height: 24),

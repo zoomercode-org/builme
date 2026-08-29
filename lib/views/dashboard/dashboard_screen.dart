@@ -66,77 +66,67 @@ class DashboardScreen extends ConsumerWidget {
             const SizedBox(height: 24),
 
             // 6 Top KPI Cards Grid
-            LayoutBuilder(
-              builder: (context, constraints) {
-                final double width = constraints.maxWidth;
-                final int crossAxisCount = width > 1200 ? 6 : (width > 800 ? 3 : (width > 500 ? 2 : 1));
-                return GridView.count(
-                  crossAxisCount: crossAxisCount,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                  childAspectRatio: width > 1200 ? 2.4 : (width > 800 ? 2.0 : 1.8),
-                  children: [
-                    KpiCard(
-                      title: 'Active Projects',
-                      value: '12',
-                      trend: '+2.3%',
-                      isPositive: true,
-                      onTap: () => context.go('/projects'),
+            Wrap(
+              spacing: 16,
+              runSpacing: 16,
+              children: [
+                KpiCard(
+                  title: 'Active Projects',
+                  value: '12',
+                  trend: '+2.3%',
+                  isPositive: true,
+                  onTap: () => context.go('/projects'),
+                ),
+                KpiCard(
+                  title: 'Total Budget',
+                  value: '₹5.4 Cr',
+                  trend: '+2.3%',
+                  isPositive: true,
+                  onTap: () => context.go('/cost-management'),
+                ),
+                KpiCard(
+                  title: 'Total Spent',
+                  value: '₹3.8 Cr',
+                  trend: '-0.5%',
+                  isPositive: true,
+                  onTap: () => context.go('/cost-management'),
+                ),
+                KpiCard(
+                  title: 'Active Employees',
+                  value: '146',
+                  trend: '+2.3%',
+                  isPositive: true,
+                  onTap: () => context.go('/employees'),
+                ),
+                KpiCard(
+                  title: 'Present Today',
+                  value: '128',
+                  trend: '87.6%',
+                  isPositive: true,
+                  onTap: () => context.go('/attendance'),
+                ),
+                KpiCard(
+                  title: 'Risk Score',
+                  value: '6.2/10',
+                  trend: 'Medium Risk',
+                  isPositive: false,
+                  trailingWidget: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: AppColors.warningLight,
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    KpiCard(
-                      title: 'Total Budget',
-                      value: '₹5.4 Cr',
-                      trend: '+2.3%',
-                      isPositive: true,
-                      onTap: () => context.go('/cost-management'),
-                    ),
-                    KpiCard(
-                      title: 'Total Spent',
-                      value: '₹3.8 Cr',
-                      trend: '-0.5%',
-                      isPositive: true,
-                      onTap: () => context.go('/cost-management'),
-                    ),
-                    KpiCard(
-                      title: 'Active Employees',
-                      value: '146',
-                      trend: '+2.3%',
-                      isPositive: true,
-                      onTap: () => context.go('/employees'),
-                    ),
-                    KpiCard(
-                      title: 'Present Today',
-                      value: '128',
-                      trend: '87.6%',
-                      isPositive: true,
-                      onTap: () => context.go('/attendance'),
-                    ),
-                    KpiCard(
-                      title: 'Risk Score',
-                      value: '6.2/10',
-                      trend: 'Medium Risk',
-                      isPositive: false,
-                      trailingWidget: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: AppColors.warningLight,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Text(
-                          'Moderate',
-                          style: GoogleFonts.inter(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.warning,
-                          ),
-                        ),
+                    child: Text(
+                      'Moderate',
+                      style: GoogleFonts.inter(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.warning,
                       ),
                     ),
-                  ],
-                );
-              },
+                  ),
+                ),
+              ],
             ),
 
             const SizedBox(height: 24),

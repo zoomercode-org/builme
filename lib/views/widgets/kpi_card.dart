@@ -9,6 +9,8 @@ class KpiCard extends StatelessWidget {
   final bool isPositive;
   final Widget? trailingWidget;
   final VoidCallback? onTap;
+  final double? width;
+  final double? height;
 
   const KpiCard({
     super.key,
@@ -18,6 +20,8 @@ class KpiCard extends StatelessWidget {
     this.isPositive = true,
     this.trailingWidget,
     this.onTap,
+    this.width = 230.0,
+    this.height = 120.0,
   });
 
   @override
@@ -26,7 +30,9 @@ class KpiCard extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(12),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+        width: width,
+        height: height,
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         decoration: BoxDecoration(
           color: AppColors.cardBackground,
           borderRadius: BorderRadius.circular(12),
@@ -46,7 +52,7 @@ class KpiCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.inter(
                       fontSize: 12,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w600,
                       color: AppColors.textSecondary,
                     ),
                   ),
@@ -60,13 +66,12 @@ class KpiCard extends StatelessWidget {
                   ),
                   child: const Icon(
                     Icons.north_east_rounded,
-                    size: 12,
+                    size: 11,
                     color: AppColors.textSecondary,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 4),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,

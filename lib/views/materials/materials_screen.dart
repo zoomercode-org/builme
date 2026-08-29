@@ -85,25 +85,15 @@ class MaterialsScreen extends ConsumerWidget {
 
             const SizedBox(height: 24),
 
-            LayoutBuilder(
-              builder: (context, constraints) {
-                final width = constraints.maxWidth;
-                final crossAxisCount = width > 1100 ? 4 : (width > 600 ? 2 : 1);
-                return GridView.count(
-                  crossAxisCount: crossAxisCount,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                  childAspectRatio: width > 1100 ? 2.4 : 2.0,
-                  children: const [
-                    KpiCard(title: 'Total Materials', value: '56', trend: 'Cataloged'),
-                    KpiCard(title: 'Low Stock Alert', value: '03', trend: 'Requires order', isPositive: false),
-                    KpiCard(title: 'Received Today', value: '1,250', trend: 'Bags & Tons'),
-                    KpiCard(title: 'Pending Orders', value: '870', trend: 'In transit'),
-                  ],
-                );
-              },
+            Wrap(
+              spacing: 16,
+              runSpacing: 16,
+              children: const [
+                KpiCard(title: 'Total Materials', value: '56', trend: 'Cataloged'),
+                KpiCard(title: 'Low Stock Alert', value: '03', trend: 'Requires order', isPositive: false),
+                KpiCard(title: 'Received Today', value: '1,250', trend: 'Bags & Tons'),
+                KpiCard(title: 'Pending Orders', value: '870', trend: 'In transit'),
+              ],
             ),
 
             const SizedBox(height: 24),
